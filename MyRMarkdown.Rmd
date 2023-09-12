@@ -8,6 +8,7 @@ output:
     toc: true
     toc_float: true
     code_download: true
+    df_print: kable
 ---
 
 
@@ -18,7 +19,8 @@ output:
     message = FALSE,
     out.width = '100%',
     fig.retina = 3,
-    fig.path = ("figures/")
+    fig.path = ("figures/"),
+    options(scipen = 999)
   )
 ```
 
@@ -65,9 +67,32 @@ ga_wide <- get_acs(
 )
 ```
 
+Now I am going to report on some statistics. `r max(ga_wide$medincM)` is the maximum median income I found.
 
-This is a histogram of something very important.
-```{r histogram, fig.cap= "Histogram of medicE"}
+```{r}
+median_age <- get_acs(
+  geography = "county",
+  variables = "B01002_001",
+  year = 2020
+)
+
+arrange(median_age, estimate)
+```
+
+
+Here is an important table.
+```{r table}
+table1 <- arrange(median_age, desc(estimate))
+knitr::kable(table1)
+```
+
+
+
+
+## Visualizing Census Data
+
+This is a *histogram* of something very important.
+```{r histogram, fig.cap= "Histogram of Median Income"}
 
 ggplot(ga_wide, aes(x = medincE)) + 
   geom_histogram()
@@ -76,5 +101,10 @@ ggplot(ga_wide, aes(x = medincE)) +
 ```{r boxplot}
 ggplot(ga_wide, aes(y = medincE)) + 
   geom_boxplot()
+```
+```{r sessioninfo}
+
+sessionInfo()
+
 ```
 
