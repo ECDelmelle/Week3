@@ -17,7 +17,8 @@ output:
     warning = FALSE,
     message = FALSE,
     out.width = '100%',
-    fig.retina = 3
+    fig.retina = 3,
+    fig.path = ("figures/")
   )
 ```
 
@@ -66,10 +67,14 @@ ga_wide <- get_acs(
 
 
 This is a histogram of something very important.
-```{r histogram, fig.path = ("figures/"), fig.cap= "Histogram of medicE"}
+```{r histogram, fig.cap= "Histogram of medicE"}
 
 ggplot(ga_wide, aes(x = medincE)) + 
   geom_histogram()
 
+```
+```{r boxplot}
+ggplot(ga_wide, aes(y = medincE)) + 
+  geom_boxplot()
 ```
 
